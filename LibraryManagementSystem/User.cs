@@ -6,7 +6,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserId { get; set; }
-        public List<Book> BorrowedBooks { get; private set; }
+        public List<Book> BorrowedBooks { get; private set; } // List to hold borrowed books
 
         public User(string firstName, string lastName, string userId)
         {
@@ -30,6 +30,36 @@
                     Console.WriteLine($"- {book.Title} ({book.ISBN})"); // Display information for each borrowed book
                 }
             }
+        }
+
+        public static bool operator ==(User? user1, User? user2)
+        {
+            if (ReferenceEquals(user1, null)) return ReferenceEquals(user2, null); // if both are null, they are equal
+            return user1.Equals(user2);
+        }
+
+        public static bool operator !=(User? user1, User? user2)
+        {
+            return !(user1 == user2);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            User other = (User)obj;
+            return UserId == other.UserId; // Compare based on UserId
+        }
+
+        /// <summary>
+        /// Computes a hash code for the current User instance, based on its userId.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return UserId.GetHashCode();
         }
     }
 }

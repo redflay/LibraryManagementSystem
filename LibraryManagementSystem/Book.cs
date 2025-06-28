@@ -32,13 +32,13 @@
         }
 
         // Override Equals method to compare Book objects based on their properties
-        public static bool operator ==(Book book1, Book book2)
+        public static bool operator ==(Book? book1, Book? book2)
         {
-            if (ReferenceEquals(book1, null)) return ReferenceEquals(book2, null);
+            if (ReferenceEquals(book1, null)) return ReferenceEquals(book2, null); // if both are null, they are equal
             return book1.Equals(book2);
         }
 
-        public static bool operator !=(Book book1, Book book2)
+        public static bool operator !=(Book? book1, Book? book2)
         {
             return !(book1 == book2);
         }
