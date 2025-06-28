@@ -142,7 +142,7 @@
                 Console.WriteLine($"No available copies of '{book.Title}' to borrow.");
                 return false;
             }
-            if (!user.BorrowedBooks.Contains(book)) // A simple check to avoid issuing the same book multiple times
+            if (user.BorrowedBooks.Contains(book)) // A simple check to avoid issuing the same book multiple times
             {
                 Console.WriteLine($"User '{user.FirstName}' already borrowed '{book.Title}'.");
                 return false;

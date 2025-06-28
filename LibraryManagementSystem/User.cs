@@ -32,7 +32,7 @@
             }
         }
 
-        public static bool operator ==(User? user1, User? user2)
+        public static bool operator ==(User? user1, User? user2) // operator overload == for simplified user comparison
         {
             if (ReferenceEquals(user1, null)) return ReferenceEquals(user2, null); // if both are null, they are equal
             return user1.Equals(user2);
