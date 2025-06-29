@@ -15,7 +15,6 @@
 
         // Methods for managing users
         void AddUser(User user);
-        bool RemoveUser(string userId);
         User? GetUserById(string userId);
         List<User> GetAllUsers();
     }

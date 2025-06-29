@@ -26,7 +26,7 @@ namespace LibraryManagementSystem
             while (running)
             {
                 DisplayMenu();
-                string choice = Console.ReadLine();
+                string? choice = Console.ReadLine();
                 Console.WriteLine();
 
                 switch (choice)
@@ -74,9 +74,9 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Add New Book ---");
             Console.Write("Title: ");
-            string title = Console.ReadLine();
+            string title = CheckForEmptyString();
             Console.Write("Author: ");
-            string author = Console.ReadLine();
+            string author = CheckForEmptyString();
             Console.Write("Publication Year: ");
             int year;
             while (!int.TryParse(Console.ReadLine(), out year))
@@ -84,7 +84,7 @@ namespace LibraryManagementSystem
                 Console.Write("Invalid year. Please enter a number: ");
             }
             Console.Write("ISBN: ");
-            string isbn = Console.ReadLine();
+            string isbn = CheckForEmptyString();
             Console.Write("Total Copies: ");
             int totalCopies;
             while (!int.TryParse(Console.ReadLine(), out totalCopies) || totalCopies <= 0)
@@ -113,7 +113,7 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Search Books ---");
             Console.Write("Enter search query (title, author, or ISBN): ");
-            string query = Console.ReadLine();
+            string query = CheckForEmptyString();
             var results = _library.SearchBooks(query);
 
             if (!results.Any())
@@ -134,7 +134,7 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Remove Book ---");
             Console.Write("Enter ISBN of the book to remove: ");
-            string isbn = Console.ReadLine();
+            string isbn = CheckForEmptyString();
             _library.RemoveBook(isbn);
         }
 
@@ -142,11 +142,11 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Add New User ---");
             Console.Write("First Name: ");
-            string firstName = Console.ReadLine();
+            string firstName = CheckForEmptyString();
             Console.Write("Last Name: ");
-            string lastName = Console.ReadLine();
+            string lastName = CheckForEmptyString();
             Console.Write("User ID: ");
-            string userId = Console.ReadLine();
+            string userId = CheckForEmptyString();
 
             _library.AddUser(new User(firstName, lastName, userId));
         }
@@ -171,9 +171,9 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Borrow Book ---");
             Console.Write("Enter ISBN of the book to borrow: ");
-            string isbn = Console.ReadLine();
+            string isbn = CheckForEmptyString();
             Console.Write("Enter User ID: ");
-            string userId = Console.ReadLine();
+            string userId = CheckForEmptyString();
 
             _library.BorrowBook(isbn, userId);
         }
@@ -182,9 +182,9 @@ namespace LibraryManagementSystem
         {
             Console.WriteLine("--- Return Book ---");
             Console.Write("Enter ISBN of the book to return: ");
-            string isbn = Console.ReadLine();
+            string isbn = CheckForEmptyString();
             Console.Write("Enter User ID: ");
-            string userId = Console.ReadLine();
+            string userId = CheckForEmptyString();
 
             _library.ReturnBook(isbn, userId);
         }
@@ -232,6 +232,18 @@ namespace LibraryManagementSystem
         private static void OnBookReturned(object sender, BookEventArgs e)
         {
             Console.WriteLine($"[EVENT] Book '{e.Book.Title}' was returned by '{e.User.FirstName}'.");
+        }
+
+        public static string CheckForEmptyString()
+        {
+            string? str;
+            str = Console.ReadLine();
+            while (string.IsNullOrEmpty(str))
+            {
+                Console.WriteLine("---You entered an empty string, please try again---");
+                str = Console.ReadLine();
+            }
+            return str;
         }
     }
 }

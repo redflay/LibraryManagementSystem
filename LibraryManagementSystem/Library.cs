@@ -92,24 +92,6 @@
             _users.Add(user);
             Console.WriteLine($"User '{user.FirstName} {user.LastName}' added to the library.");
         }
-        // Method to remove a user from the library
-        public bool RemoveUser(string userId)
-        {
-            var userToRemove = _users.FirstOrDefault(u => u.UserId == userId); // Find the user by UserId
-            if (userToRemove != null)
-            {
-                if (userToRemove.BorrowedBooks.Any()) // Check if the user has borrowed books
-                {
-                    Console.WriteLine($"Cannot remove user '{userToRemove.FirstName} {userToRemove.LastName}' as they have borrowed books.");
-                    return false;
-                }
-                _users.Remove(userToRemove);
-                Console.WriteLine($"User '{userToRemove.FirstName} {userToRemove.LastName}' removed from the library.");
-                return true;
-            }
-            Console.WriteLine($"User with ID {userId} not found.");
-            return false;
-        }
 
         public User? GetUserById(string userId)
         {
